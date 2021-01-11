@@ -1,6 +1,8 @@
 import React, { Component, useEffect, useState } from 'react';
 import { View, Text, Button, ImageBackground, StyleSheet } from 'react-native';
 import * as MediaLibrary from "expo-media-library";
+import * as Permissions from "expo-permissions";
+
 
 class HomeScreen extends Component {
     constructor(props) {
@@ -11,6 +13,8 @@ class HomeScreen extends Component {
     }
 
     componentDidMount = async () => {
+        let { permMedia } = await Permissions.askAsync(Permissions.MEDIA_LIBRARY);
+
         let last = await MediaLibrary.getAssetsAsync({
             first: 1,
             sortBy: MediaLibrary.SortBy.creationTime,
